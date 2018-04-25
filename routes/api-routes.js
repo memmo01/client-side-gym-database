@@ -10,6 +10,12 @@ module.exports=function(app){
         })
     })
 
+     app.post("/api/member/add",function(req,res){
+        db.member.create(req.body).then(function(results){
+            res.json(results)
+        })
+    })
+
     app.get("/api/agenda/:date?",function(req,res){
         db.Schedule.findAll({
             where:{
