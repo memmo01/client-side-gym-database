@@ -12,25 +12,31 @@ $("#addMembers").on("click",function(){
     populateForm();
 
 })
+
+$("#viewMembers").on("click",function(){
+    populateMembers();
+})
 }
 
 function populateForm(){
 
-   var form ="<br><input type:'text' id='firstName' placeholder='first name'> <br>";
-    form+="<input type:'text' id='lastName' placeholder='last name'><br>";
-    form+="<input type:'text' id='DOB' placeholder='mm-dd-yyyy'><br>";
-    form+="<input type:'text' id='address' placeholder='enter address'><br>";
-    form+="<input type:'text' id='city' placeholder='city'><br>";
-    form+="<input type:'text' id='state' placeholder='state'><br>";
+   var form ="<br><form id='form'><input type:'text' id='firstName' placeholder='first name' required> <br>";
+    form+="<input type:'text' class='infoinput' id='lastName' placeholder='last name'><br>";
+    form+="<input type:'text' class='infoinput' id='DOB' placeholder='mm-dd-yyyy'><br>";
+    form+="<input type:'text' class='infoinput' id='address' placeholder='enter address'><br>";
+    form+="<input type:'text' class='infoinput' id='city' placeholder='city'><br>";
+    form+="<input type:'text' class='infoinput' id='state' placeholder='state'><br>";
     form+="<input type:'text' id='zip' placeholder='zip code'><br>";
-    form+="<input type:'text' id='email' placeholder='email'><br>";
-        form+="<button id='submit'>submit</button>";
+    form+="<input type:'text' class='infoinput' id='email' placeholder='email'><br>";
+        form+="<button id='submit'>submit</button> </form>";
 
         $(".modal-body").append(form);
 
 
 
-        $("#submit").on("click",function(){
+        $("#form").on("click",function(e){
+            e.preventDefault()
+          
 
             var member ={
                 firstName:$("#firstName").val(),
@@ -42,14 +48,35 @@ function populateForm(){
                 zip:$("#zip").val(),
                 email:$("#email").val()
             }
-            console.log(member)
+
+            alert("member added")
+
 
             $.post("/api/member/add",member,function(){
                 console.log("added")
             })
 
+                $("#firstName").val(""),
+                $("#lastName").val(""),
+                $("#DOB").val(""),
+                $("#address").val(""),
+                $("#city").val(""),
+                $("#state").val(""),
+                $("#zip").val(""),
+                $("#email").val("")
+
 
 
 
         })
+}
+
+function populateMembers(){
+    $.get("/api/members/list",function(results){
+        for(var i =0;i<results.length;i++){
+            let fname = "<br>"+results[i].firstName +" "+results[i].lastName+"<br>";
+
+            $(".modal-body").append(fname)
+        }
+    })
 }

@@ -16,6 +16,13 @@ module.exports=function(app){
         })
     })
 
+    app.get("/api/members/list",function(req,res){
+        db.member.findAll({}).then(function(results){
+            res.json(results)
+        })
+    })
+
+
     app.get("/api/agenda/:date?",function(req,res){
         db.Schedule.findAll({
             where:{
