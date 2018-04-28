@@ -3,17 +3,20 @@ function members(){
 
    
 $(".modal-body").empty()
+  $(".modal-schedule").empty()
 
 
 var memberBtnOption="<button id='viewMembers'> view members</button> <button id='addMembers'> add new member</button>"
 $(".modal-body").append(memberBtnOption);
 
 $("#addMembers").on("click",function(){
+   $(".modal-schedule").empty()
     populateForm();
 
 })
 
 $("#viewMembers").on("click",function(){
+    $(".modal-schedule").empty()
     populateMembers();
 })
 }
@@ -30,11 +33,11 @@ function populateForm(){
     form+="<input type:'text' class='infoinput' id='email' placeholder='email'><br>";
         form+="<button id='submit'>submit</button> </form>";
 
-        $(".modal-body").append(form);
+        $(".modal-schedule").append(form);
 
 
 
-        $("#form").on("click",function(e){
+        $("#submit").on("click",function(e){
             e.preventDefault()
           
 
@@ -65,18 +68,37 @@ function populateForm(){
                 $("#zip").val(""),
                 $("#email").val("")
 
-
-
-
         })
 }
 
 function populateMembers(){
+  
     $.get("/api/members/list",function(results){
-        for(var i =0;i<results.length;i++){
-            let fname = "<br>"+results[i].firstName +" "+results[i].lastName+"<br>";
 
-            $(".modal-body").append(fname)
+        var table = $("<table>");
+        var row=$("<tr>");
+        var data = "<th>customer ID</th> <th>first name</th> <th>last name</th>";
+        (row).append(data);
+        (table).append(row);
+
+
+        $(".modal-schedule").append(table)
+
+        for(var i =0;i<results.length;i++){
+           $(table).append(constructDataTorows(results[i]))
+            
+            
         }
     })
+
 }
+
+
+
+    function constructDataTorows(results){
+             let fname = "<tr><td>"+results.id +"</td><td>"+results.firstName +"</td><td> "+results.lastName+"</td><td><button id="+results.id+">More Info</button></tr>";
+            
+             return fname
+}
+
+
