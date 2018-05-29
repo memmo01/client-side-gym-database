@@ -310,7 +310,6 @@ function createSchForm() {
             })
 
             runthis();
-            // alert(months[month-1]+"/" + day+"/" + year +"/ start:"+start+"/ end: "+ end+"/"+ workout)
         })
 
 

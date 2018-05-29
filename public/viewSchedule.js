@@ -1,3 +1,5 @@
+
+
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 var now = moment();
@@ -12,7 +14,6 @@ function viewSchedule() {
     $(".modal-footer").empty()
     $(".modal-schedule").empty()
     $(".modal-time").empty()
-    // alert("view")
     $("#modalTitle").html("schedule")
     notBusy=[];
     busy=[];

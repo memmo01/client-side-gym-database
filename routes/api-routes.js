@@ -5,7 +5,7 @@ module.exports=function(app){
    
    
     app.post("/api/addschedule",function(req,res){
-        db.Schedule.create(req.body).then(function(results){
+        db.schedule.create(req.body).then(function(results){
             res.json(results)
         })
     })
@@ -16,6 +16,12 @@ module.exports=function(app){
         })
     })
 
+     app.post("/api/addNewWorkout",function(req,res){
+        db.workouts.create(req.body).then(function(results){
+            res.json(results)
+        })
+     })
+
     app.get("/api/members/list",function(req,res){
         db.member.findAll({}).then(function(results){
             res.json(results)
@@ -24,7 +30,7 @@ module.exports=function(app){
 
 
     app.get("/api/agenda/:date?",function(req,res){
-        db.Schedule.findAll({
+        db.schedule.findAll({
             where:{
                 date:req.params.date
             }
@@ -34,7 +40,7 @@ module.exports=function(app){
     })
 
     app.get("/api/scheduleWK/:d?/:l?",function(req,res){
-        db.Schedule.findAll({
+        db.schedule.findAll({
             where:{
                 date:{
                     $lte:req.params.d,
@@ -55,14 +61,14 @@ module.exports=function(app){
 
 
 
-    app.get("/api/workouts",function(req,res){
-        db.Workouts.findAll({}).then(function(results){
+    app.get("/api/workouts/",function(req,res){
+        db.workouts.findAll({}).then(function(results){
             res.json(results);
         })
     })
 
      app.get("/api/editWorkout/:workout?",function(req,res){
-        db.Workouts.findAll({
+        db.workouts.findAll({
             where:{
                 name:req.params.workout
             }
@@ -72,7 +78,7 @@ module.exports=function(app){
     })
 
     app.put("/api/updateworkout", function(req,res){
-        db.Workouts.update({
+        db.workouts.update({
             name:req.body.newName,
             duration:req.body.newDuration,
             notes:req.body.newNotes

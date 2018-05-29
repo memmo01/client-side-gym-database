@@ -1,3 +1,5 @@
+
+
 function workouts() {
 
 
@@ -10,6 +12,7 @@ function workouts() {
     populateArea()
 
     function populateArea() {
+
         var workoutArea = $("<div>");
         workoutArea.addClass(workoutArea);
 
@@ -55,7 +58,28 @@ function workouts() {
 }
 
 function add() {
-    $(".modal-body").html("this is where input will go to add new workouts" + "<button onclick='workouts()'>back</button>")
+
+    var addRoutine = "<form> <div class='form-group'>";
+    addRoutine+="<input type='text' class='form-control' id='workoutName' placeholder='Name of workout'>";
+    addRoutine+="<input type='text' class='form-control' id='duration' placeholder='workout duration'>";
+    addRoutine+=" <textarea class='form-control' id='notes' rows='3'></textarea><button type='submit' class='btn btn-primary mb-2 inputSubmit'>Add Workout</button> </div>"
+    $(".modal-body").html(addRoutine+ "<button onclick='workouts()'>back</button>")
+
+    $(".inputSubmit").on("click",function(){
+        var input ={
+            name:$("#workoutName").val(),
+            duration:$("#duration").val(),
+            notes:$("#notes").val()
+        }
+
+        $.post("/api/addNewWorkout",input,function(){
+            console.log("added")
+            
+
+        })
+        alert("new workout added")
+        workouts()
+    })
 
 }
 
