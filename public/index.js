@@ -19,11 +19,30 @@ var currentDate= (moment(d).format("YYYYMMDD"))
                var start=results[i].start_time;
                var end = results[i].end_time;
                var workout = results[i].workout;
+               var id = results[i].id;
 
-               var scheduleGrouped="<li class='list-group-item'><div class>"+workout+"<br>"+start+"-"+end+"</div></li>";
+
+               var scheduleGrouped="<li class='list-group-item'><div class>"+workout+"<br>"+start+"-"+end+"</div><div class='numAttending' id='"+id+"'></div></li>";
            $(".scheduleG").append(scheduleGrouped)
+           checkNumSignedUp(id)
            
             }
 
 
+function checkNumSignedUp(id){
+  $.get("/api/members/signedup/"+id,function(results){
+    numAttend = results.length
+   $("#"+id+"").html("Attending: "+numAttend)
+  })
+
+}
+$(".numAttending").on("click",function(e){
+// this will call a function to populate a modal displaying a list of names of people attending the scheduled workout
+  alert(e.target.id)
 })
+
+})
+
+
+
+

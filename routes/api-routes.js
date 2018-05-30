@@ -59,6 +59,15 @@ module.exports=function(app){
         })
     })
 
+    app.get("/api/members/signedup/:member?",function(req,res){
+        db.signups.findAll({
+            where:{
+                scheduleId:req.params.member
+            }
+        }).then(function(results){
+            res.json(results)
+        })
+    })
 
 
     app.get("/api/workouts/",function(req,res){
