@@ -77,27 +77,30 @@ function displayWkSchd(x) {
 
     var futureDate = (moment(l).format("YYYYMMDD"))
     console.log("_____")
+
+    //HERE WE GET THE CURRENT DATE
     var currentDate = (moment(d).format("YYYYMMDD"))
-    console.log(month + 1);
-    console.log(date);
-    console.log(year);
 
-
-    console.log(futureMonth + 1+"FUTURE")
-    console.log(futureDate + "FUTRE")
-    console.log(futureYear)
+//WE TAKE THE CURRENT DATE AND FIND THE DATE OF THE SUNDAY OF THAT WEEK
+    var momentConvert =(moment(currentDate))
+    var currentWeek =(momentConvert.week())
+    var dateOfSunday= moment().day("Sunday").week(currentWeek)
+    //CONVERT THE DATE INTO READABLE AND SEARCHABLE NUMBER USING MOMENT
+    var dateOfSundayConverted = moment(dateOfSunday).format("YYYYMMDD")
+   
 
     
 
 
 
 
-    //  perform a query to the database and get a weeks worth of scheduling , then post it to the modal
-    // get informatin from current date and 7 days later.
-    $.get("/api/scheduleWK/" + futureDate + "/" + currentDate + "/", function(results) {
+    //  perform a query to the database and get a weeks worth of scheduling  starting with the sunday of this week, then post it to the modal
+    // get information from current date and 7 days later.
+    $.get("/api/scheduleWK/" + futureDate + "/" + dateOfSundayConverted + "/", function(results) {
 
-
+console.log(futureDate + "/"+currentDate)
         run(results)
+
 
 
 
@@ -164,6 +167,7 @@ function run(results) {
 
 
         var m = (moment(results[i].date))
+        console.log(m+"M")
 
         var day = (m.day())
         var year = (m.year())
@@ -173,11 +177,14 @@ function run(results) {
         var test = moment().day("Sunday").week(week);
 
         var x = test.date()
-        console.log(x)
+        console.log(x +"HERE")
+
+        console.log("day"+day)
 
 
 
-        console.log(test)
+        console.log(test + "TEST")
+        
 
         $("#sun-text").html(months[month] + " " + x + ", " + year);
 
@@ -206,9 +213,11 @@ function run(results) {
             printToScreen(results[i], ".tuesAg")
         } else if (day === 3) {
              busy.push(3)
+             console.log("WEDNESDAY")
             printToScreen(results[i], ".wedAg")
         
         } else if (day === 4) {
+            console.log("THURSDAY")
              busy.push(4)
             printToScreen(results[i], ".thursAg")
         } else if (day === 5) {

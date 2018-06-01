@@ -22,6 +22,16 @@ module.exports=function(app){
         })
      })
 
+    app.get("/api/member/:category?/:variable?",function(req,res){
+        db.member.findAll({
+            where:{
+                [req.params.category]:req.params.variable
+            }
+        }).then(function(results){
+            res.json(results)
+        })
+    })
+
     app.get("/api/members/list",function(req,res){
         db.member.findAll({}).then(function(results){
             res.json(results)

@@ -1,0 +1,63 @@
+
+     /* INDEX HTML LANDING PAGE ****** */
+    .row{
+        margin-top:40px;
+    }
+    .row .optionList{
+        display:grid;
+        margin-top:40px;
+    }
+  
+    .row .optionList .mainOptions{
+        margin-top:10px;
+        height:100px;
+    }
+    .numAttending:Hover{
+      color:blue;
+    cursor: pointer;
+    }
+
+
+    /* ******** */
+    
+    .modal-body .scheduleGroup{
+        display:inline-flex;
+    }
+    .modal-footer{
+        display:block;
+    }
+    .modal-time{
+        margin-top:30px;
+        border-top:1px solid black;
+    }
+    .modal-schedule{
+      display:inline-flex;
+  }
+
+    /* ****addschedule.js**** */
+     .timeGroup{
+        display:inline-flex;
+    }
+
+ /* addschedule.js & viewSchedule.js */
+    .tCard{
+        background-color: peachpuff;
+    }
+
+       /* *********** */
+
+    /* ****members.js */
+    #form{
+    width: 100%;
+    margin-left: 10%;
+  }
+    table{
+      margin-left:10%;
+      width:100%;
+  }
+    /* **** */
+    input{
+      width:50%;
+      margin-bottom:10px
+  }
+  

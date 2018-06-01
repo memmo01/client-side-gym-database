@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "memmo01",
-    "password": "P#AGOs10",
-    "database": "gym_db",
-    "host": "gyminstances.cynkbtqi9dkd.us-east-1.rds.amazonaws.com",
+    "password": "",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   },
   "test": {
