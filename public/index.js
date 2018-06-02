@@ -38,16 +38,21 @@ function checkNumSignedUp(id){
 }
 $(".numAttending").on("click",function(e){
   $(".modal-body").empty()
+  $(".modal-schedule").empty()
   var tbl ="<tr><th>#</th><th>First</th><th>Last</th><th>Email</th></tr>"
   $(".modal-body").append(tbl)
 // this will call a function to populate a modal displaying a list of names of people attending the scheduled workout
 
+// dayId tells us the id number of the schedule from the schedules database allowing us
+// to retrieve information of that specific scheduled day and time and workout
 
   var dayId= e.target.id;
-
+//this uses the schedule dayID number to query the signup database. it finds a match with the schedule id and then brings
+// back all information associated with that day
   $.get("/api/members/signedup/"+dayId,function(results){
    
   for(var i =0;i<results.length;i++){ 
+    // we extract the userID from the matching day so we know who is attending
     var member = results[i].userID
     loadMembersAttending(member,i)
   }
@@ -57,7 +62,9 @@ $(".numAttending").on("click",function(e){
 })
 
 function loadMembersAttending(m,i){
-
+  
+//Here we query the member database to get a match with the userID aso we can load the users name for the owner to see who
+//will be attending
   $.get("/api/member/id/"+m+"/",function(results){
     var displayUser = "<tr><td>"+(i+1)+"</td><td>"+results[0].firstName+"</td><td>"+results[0].lastName+"</td><td>"+results[0].email+"</td></tr>"
 $(".modal-title").html("Members Attending")

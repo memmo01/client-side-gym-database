@@ -17,6 +17,10 @@
     cursor: pointer;
     }
 
+    .modal-body tr td{
+        width:25%;
+    }
+
 
     /* ******** */
     

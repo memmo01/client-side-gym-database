@@ -232,13 +232,20 @@ function run(results) {
     }
 
         function printToScreen(results, dow) {
-            
+            console.log(results)
+            var time = results.start_time.split(":").join("")
+            var dateStartTime = results.date+time;
             var xxy = "<div class='card';'>";
             xxy += "<ul class='list-group list-group-flush Trial'>";
-            xxy += "<li class='list-group-item'>" + results.start_time + " - " + results.end_time + "<p>" + results.workout + "</li>";
+            xxy += "<li class='list-group-item' id='"+dateStartTime+"'>" + results.start_time + " - " + results.end_time + "<p>" + results.workout + "</p></li>";
 
 
             $("" + dow + "").append(xxy)
+           checkMembersAttending(results.id,dateStartTime)
+
+            //this will query the database for the day and see if any members have signed up. if they have then the
+            // function will return the number of members expected to attend
+            // $(""+ dow + "").append(checkMembersAttending(results.id))
         }
 
 
@@ -259,7 +266,7 @@ function run(results) {
             run(".sunAg")
         }
         else if(notBusy[g] ==1){
-  run(".monAg")
+            run(".monAg")
         }
         else if(notBusy[g] ==2){
               run(".tuesAg")
@@ -292,6 +299,16 @@ function run(results) {
 }
 
 
+// 1. checkMembersAttending function will take the date id and query the signup database
+// 2. if there is a match it will return how many matches there are thus telling us how many members are arriving
+
+function checkMembersAttending(scheduleId,dow){
+
+    $.get("/api/members/signedup/"+scheduleId, function(results){
+        console.log(results.length)
+        $("#" + dow + "").append("Attending: "+results.length)
+    })
+}
 
 
 //  MAY NEED LATER **** when showing month view
